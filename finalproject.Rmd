@@ -1,0 +1,32 @@
+---
+title: "plan372_final_project"
+author: "Abby_Pender"
+date: "2024-12-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# load libraries
+library(tidycensus)
+library(dplyr)
+library(sf)
+library(tigris)
+library(readr)
+```
+
+```{r}
+triangle_census <- read_csv("Desktop/plan372finalproject/triangle_census.csv")
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
