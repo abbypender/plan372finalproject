@@ -11,22 +11,45 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 # load libraries
-library(tidycensus)
 library(dplyr)
-library(sf)
-library(tigris)
+library(ggplot2)
 library(readr)
+library(sf)
 ```
 
 ```{r}
-triangle_census <- read_csv("Desktop/plan372finalproject/triangle_census.csv")
+# Read in data
+triangle_census <- read_csv("/Users/abbypender/Desktop/plan372finalproject/triangle_census.csv")
 ```
 
 ```{r}
+triangle_census <- triangle_census %>%
+  mutate(
+    # Create percentage column for zero vehicle households 
+    zero_vehicle_pct = as.integer(round((zero_vehicle_households / total_households) * 100, 0)),
+    
+    # Create percentage column for households with income less than 35k 
+    income_less_than_35k_pct = as.integer(round((households_income_less_than_35k / total_households) * 100, 0))
+  )
+head(triangle_census)
 
 ```
 
 ```{r}
-
+# Plot histogram of zero-vehicle percentage in the Triangle
+ggplot(triangle_census, aes(x = zero_vehicle_pct)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "darkgreen", alpha = 0.7) +
+  labs(
+    title = "Histogram of Zero Vehicle Percentage in the Triangle",
+    x = "Zero Vehicle Percentage (%)",
+    y = "Frequency per GEOID from Triangle Census Data"
+  ) +
+  theme_minimal()
 ```
+
+```{r}
+# Write csv
+write_csv(triangle_census, "/Users/abbypender/Desktop/plan372finalproject/triangle_census_int.csv")
+```
+
 
